@@ -1,16 +1,16 @@
 import Image from "next/image";
 
-async function getMovie(movieId: string) {
+async function getMovie(movieId: string, type: string) {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.API_KEY}`
+    `https://api.themoviedb.org/3/${type}/${movieId}?api_key=${process.env.API_KEY}`
   );
   return await res.json();
 }
 
 export default async function MoviePage({ params }: {params: any}) {
   const movieId = params.id;
-  const movie = await getMovie(movieId);
-  console.log(movie)
+  const type = params.type;
+  const movie = await getMovie(movieId, type);
   return (
     <div className="w-full">
       <div className="p-4 md:pt-8 flex flex-col md:flex-row items-center content-center max-w-6xl mx-auto md:space-x-6">
